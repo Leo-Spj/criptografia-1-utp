@@ -1,3 +1,8 @@
+
+*.csv
+
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,visualstudiocode,intellij
 

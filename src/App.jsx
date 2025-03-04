@@ -17,13 +17,13 @@ function App() {
           <h1>Algoritmos Criptográficos</h1>
           <nav>
             <ul className="nav-list">
+              <li><Link to="/abecedario-excel">Abecedario a Excel</Link></li>
+              <li><Link to="/cifrado-cesar">Cifrado César</Link></li>
+              <li><Link to="/saltos-sucesivos">Saltos Sucesivos</Link></li>
               <li><Link to="/transposicion">Transposición</Link></li>
               <li><Link to="/trama">Trama</Link></li>
-              <li><Link to="/saltos-sucesivos">Saltos Sucesivos</Link></li>
               <li><Link to="/discos-concentricos">Discos Concéntricos</Link></li>
               <li><Link to="/dibase">Dibase</Link></li>
-              <li><Link to="/cifrado-cesar">Cifrado César</Link></li>
-              <li><Link to="/abecedario-excel">Abecedario Excel</Link></li>
             </ul>
           </nav>
         </header>

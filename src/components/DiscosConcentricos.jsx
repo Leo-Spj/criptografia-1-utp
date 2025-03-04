@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { standardizeSpacing, validateCharCount } from '../utils/formatUtils';
+import { useState } from 'react';
+import { standardizeSpacing, joinCharacters, formatNumericKeys } from '../utils/formatUtils';
 import { generarMatrices } from '../utils/discosUtils';
 
 const DiscosConcentricos = () => {
@@ -9,37 +9,28 @@ const DiscosConcentricos = () => {
   const [cantidad, setCantidad] = useState(6);
   const [matrices, setMatrices] = useState([]);
   
-  // Estandarizar formato cuando cambia el input
-  useEffect(() => {
-    const formattedText = standardizeSpacing(cadena);
-    if (formattedText !== cadena) {
-      setCadena(formattedText);
-    }
-  }, [cadena]);
-
-  useEffect(() => {
-    const formattedCode = standardizeSpacing(codigo);
-    if (formattedCode !== codigo) {
-      setCodigo(formattedCode);
-    }
-  }, [codigo]);
-
   // Función para manejar cambio en el textarea de cadena
   const handleCadenaChange = (e) => {
-    setCadena(e.target.value);
+    setCadena(standardizeSpacing(e.target.value));
   };
 
   // Función para manejar cambio en el input de código
   const handleCodigoChange = (e) => {
-    setCodigo(e.target.value);
+    setCodigo(formatNumericKeys(e.target.value));
+  };
+
+  // Función para manejar cambio en el input de direcciones
+  const handleDireccionesChange = (e) => {
+    setDirecciones(joinCharacters(e.target.value).toUpperCase());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     // Validar que hay exactamente 36 caracteres (sin contar espacios)
-    if (!validateCharCount(cadena, 36)) {
-      alert('La cadena debe tener exactamente 36 caracteres');
+    const cadenaLimpia = joinCharacters(cadena);
+    if (cadenaLimpia.length !== 36) {
+      alert(`La cadena debe tener exactamente 36 caracteres. Actualmente tiene ${cadenaLimpia.length}`);
       return;
     }
     
@@ -54,7 +45,7 @@ const DiscosConcentricos = () => {
       
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="cadena">Caracteres (36 caracteres separados por espacios):</label>
+          <label htmlFor="cadena">Caracteres (36 caracteres con o sin espacios):</label>
           <textarea
             id="cadena"
             value={cadena}
@@ -64,12 +55,12 @@ const DiscosConcentricos = () => {
             rows="3"
           />
           <small className="helper-text">
-            Puedes pegar caracteres juntos o separados, se formatearán automáticamente
+            Puedes pegar caracteres juntos o separados. Los espacios serán ajustados automáticamente.
           </small>
         </div>
         
         <div className="form-group">
-          <label htmlFor="codigo">Códigos (saltos separados por espacios):</label>
+          <label htmlFor="codigo">Códigos (se formatearán automáticamente):</label>
           <input
             id="codigo"
             type="text"
@@ -86,10 +77,11 @@ const DiscosConcentricos = () => {
             id="direcciones"
             type="text"
             value={direcciones}
-            onChange={(e) => setDirecciones(e.target.value)}
+            onChange={handleDireccionesChange}
             required
             placeholder="IDIIDI"
           />
+          <small className="helper-text">Los espacios serán eliminados automáticamente</small>
         </div>
         
         <div className="form-group">

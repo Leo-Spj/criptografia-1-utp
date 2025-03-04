@@ -1,4 +1,3 @@
-
 /**
  * Ordena una cadena usando el algoritmo de saltos sucesivos sin direcciones
  * @param {String} cadena - Cadena con elementos separados por espacios
@@ -7,7 +6,7 @@
  */
 export const ordenarCadena = (cadena, saltos) => {
   // Convertir cadena y saltos a listas
-  const elementos = cadena.split(/\s+/);
+  const elementos = cadena.replace(/\s+/g, '').split('');
   const saltosList = saltos.split(/\s+/).map(Number);
   const ordenados = [];
   let pointer = 0;
@@ -41,9 +40,9 @@ export const ordenarCadena = (cadena, saltos) => {
  */
 export const ordenarCadenaConDirecciones = (cadena, saltos, direcciones) => {
   // Convertir cadena y saltos a listas, y direcciones a lista de caracteres
-  const elementos = cadena.split(/\s+/);
+  const elementos = cadena.replace(/\s+/g, '').split('');
   const saltosList = saltos.split(/\s+/).map(Number);
-  const direccionesList = direcciones.split('');
+  const direccionesList = direcciones.replace(/\s+/g, '').split('');
   const ordenados = [];
   let pointer = 0;
   let first = true;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { reordenarGrupos } from '../utils/tramaUtils';
+import { formatNumericKeys, joinCharacters } from '../utils/formatUtils';
 
 const Trama = () => {
   const [cadenaPrincipal, setCadenaPrincipal] = useState('ZSQRCLKFEJI');
@@ -7,10 +8,19 @@ const Trama = () => {
   const [claveOrdenatoria, setClaveOrdenatoria] = useState('5 6 7 2 3');
   const [resultado, setResultado] = useState('');
 
+  const handleClaveDadaChange = (e) => {
+    setClaveDada(formatNumericKeys(e.target.value));
+  };
+
+  const handleClaveOrdenatoriaChange = (e) => {
+    setClaveOrdenatoria(formatNumericKeys(e.target.value));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const result = reordenarGrupos(cadenaPrincipal, claveDada, claveOrdenatoria);
+      const cadenaNormalizada = joinCharacters(cadenaPrincipal);
+      const result = reordenarGrupos(cadenaNormalizada, claveDada, claveOrdenatoria);
       setResultado(result);
     } catch (error) {
       setResultado(`Error: ${error.message}`);
@@ -31,26 +41,27 @@ const Trama = () => {
             onChange={(e) => setCadenaPrincipal(e.target.value)}
             required
           />
+          <small>Los espacios en la cadena principal serán ignorados automáticamente</small>
         </div>
         
         <div className="form-group">
-          <label htmlFor="claveDada">Clave Dada (separada por espacios):</label>
+          <label htmlFor="claveDada">Clave Dada (se formateará automáticamente):</label>
           <input
             id="claveDada"
             type="text"
             value={claveDada}
-            onChange={(e) => setClaveDada(e.target.value)}
+            onChange={handleClaveDadaChange}
             required
           />
         </div>
         
         <div className="form-group">
-          <label htmlFor="claveOrdenatoria">Clave Ordenatoria (separada por espacios):</label>
+          <label htmlFor="claveOrdenatoria">Clave Ordenatoria (se formateará automáticamente):</label>
           <input
             id="claveOrdenatoria"
             type="text"
             value={claveOrdenatoria}
-            onChange={(e) => setClaveOrdenatoria(e.target.value)}
+            onChange={handleClaveOrdenatoriaChange}
             required
           />
         </div>

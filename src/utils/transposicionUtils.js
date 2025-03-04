@@ -1,4 +1,3 @@
-
 /**
  * Reordena una cadena utilizando el algoritmo de transposición
  * @param {String} cadenaPrincipal - Cadena principal a reordenar
@@ -8,6 +7,9 @@
  * @throws {Error} - Error si las claves no tienen la misma longitud o caracteres
  */
 export const reordenar = (cadenaPrincipal, claveSuperior, claveInferior) => {
+  // Normalizar la cadena principal eliminando espacios
+  cadenaPrincipal = cadenaPrincipal.replace(/\s+/g, '');
+  
   // Validar que las claves tengan la misma longitud y mismos caracteres
   const tokensInf = claveSuperior.split(/\s+/);
   const tokensSup = claveInferior.split(/\s+/);

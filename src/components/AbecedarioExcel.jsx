@@ -3,7 +3,7 @@ import { useState } from 'react';
 const AbecedarioExcel = () => {
   const [cadena, setCadena] = useState('');
   const [invertir, setInvertir] = useState(false);
-  const [resultado, setResultado] = useState('');
+  const [resultado, setResultado] = useState([]);
 
   const procesarCadena = () => {
     // Quitar espacios
@@ -14,36 +14,25 @@ const AbecedarioExcel = () => {
       procesada = procesada.split('').reverse().join('');
     }
     
-    // Convertir a formato CSV
-    return procesada.split('').join(',');
+    // Devolver un array de caracteres
+    return procesada.split('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     try {
-      const csvContent = procesarCadena();
-      setResultado(csvContent);
-      
-      // Crear un enlace para descargar el archivo CSV
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.setAttribute('href', url);
-      link.setAttribute('download', 'archivo.csv');
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const caracteres = procesarCadena();
+      setResultado(caracteres);
     } catch (error) {
-      setResultado(`Error: ${error.message}`);
+      setResultado([`Error: ${error.message}`]);
     }
   };
 
   return (
     <div className="component-container">
-      <h2>Abecedario para Excel</h2>
-      <p>Convierte una cadena de texto a formato CSV para Excel.</p>
+      <h2>Visualizador de Cadena de Texto</h2>
+      <p>Convierte una cadena de texto a una tabla horizontal de caracteres.</p>
       
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -68,14 +57,39 @@ const AbecedarioExcel = () => {
           </label>
         </div>
         
-        <button type="submit">Generar CSV</button>
+        <button type="submit">Mostrar en Tabla</button>
       </form>
       
-      {resultado && (
+      {resultado.length > 0 && (
         <div className="result-container">
-          <h3>Resultado (en formato CSV):</h3>
-          <div className="result csv-result">{resultado}</div>
-          <p>El archivo se ha descargado automáticamente</p>
+          <h3>Resultado:</h3>
+          <div className="tabla-caracteres">
+            <table>
+              <tbody>
+                <tr>
+                  {resultado.map((caracter, index) => (
+                    <td key={index}>{caracter}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <style jsx>{`
+            .tabla-caracteres {
+              overflow-x: auto;
+              margin-top: 15px;
+            }
+            .tabla-caracteres table {
+              border-collapse: collapse;
+              width: 100%;
+            }
+            .tabla-caracteres td {
+              border: 1px solid #ddd;
+              padding: 8px;
+              text-align: center;
+              min-width: 30px;
+            }
+          `}</style>
         </div>
       )}
     </div>

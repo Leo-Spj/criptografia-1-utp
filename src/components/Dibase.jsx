@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { procesarDibase } from '../utils/dibaseUtils';
 
 const Dibase = () => {
-  const [cadena36, setCadena36] = useState('0IJZL1M4WOPMURCFDN9Q36YEAT287VKXGSB5H');
+  const [cadena36, setCadena36] = useState('AÑHUNBGMYPWTDOVXKFCLZSQREJI123456789');
   const [clave, setClave] = useState('586731');
   const [texto, setTexto] = useState('amapola');
   const [resultado, setResultado] = useState(null);

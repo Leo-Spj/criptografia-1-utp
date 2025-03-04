@@ -1,4 +1,3 @@
-
 /**
  * Gira los discos concéntricos de una matriz según patrones especificados
  * @param {Array} matriz - Matriz cuadrada de caracteres
@@ -98,12 +97,14 @@ export const girarDiscos = (matriz, salto1, salto2, salto3, direccion1, direccio
  */
 export const crearMatrizDesdeString = (cadena, tamano) => {
   const matriz = Array(tamano).fill().map(() => Array(tamano).fill(''));
-  const caracteresArray = cadena.split(/\s+/);
+  
+  // Normalizar la cadena eliminando espacios
+  const caracteres = cadena.replace(/\s+/g, '').split('');
   
   let index = 0;
   for (let i = 0; i < tamano; i++) {
     for (let j = 0; j < tamano; j++) {
-      matriz[i][j] = caracteresArray[index++] || '';
+      matriz[i][j] = caracteres[index++] || '';
     }
   }
   

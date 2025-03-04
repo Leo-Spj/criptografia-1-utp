@@ -1,4 +1,3 @@
-
 /**
  * Reordena grupos de caracteres según el algoritmo de trama
  * @param {String} cadenaPrincipal - Cadena principal a reordenar
@@ -8,6 +7,9 @@
  * @throws {Error} - Error si las claves no tienen la misma longitud o caracteres
  */
 export const reordenarGrupos = (cadenaPrincipal, claveDada, claveOrdenatoria) => {
+  // Normalizar la cadena principal eliminando espacios
+  cadenaPrincipal = cadenaPrincipal.replace(/\s+/g, '');
+  
   // Validar que ambas claves tengan la misma longitud y mismos elementos
   const tokensSup = claveDada.split(/\s+/);
   const tokensInf = claveOrdenatoria.split(/\s+/);

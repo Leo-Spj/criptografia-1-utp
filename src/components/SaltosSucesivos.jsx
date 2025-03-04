@@ -1,21 +1,40 @@
 import { useState } from 'react';
 import { ordenarCadena, ordenarCadenaConDirecciones } from '../utils/saltosUtils';
+import { formatNumericKeys, standardizeSpacing, joinCharacters } from '../utils/formatUtils';
 
 const SaltosSucesivos = () => {
   const [cadena, setCadena] = useState('T X V W P O D');
   const [saltos, setSaltos] = useState('4 6 8');
   const [direcciones, setDirecciones] = useState('IDI');
   const [usarDirecciones, setUsarDirecciones] = useState(false);
+  const [tipoSalto, setTipoSalto] = useState('saltos'); // 'saltos' o 'espacios'
   const [resultado, setResultado] = useState('');
+
+  const handleCadenaChange = (e) => {
+    setCadena(standardizeSpacing(e.target.value));
+  };
+
+  const handleSaltosChange = (e) => {
+    setSaltos(formatNumericKeys(e.target.value));
+  };
+
+  const handleDireccionesChange = (e) => {
+    setDirecciones(joinCharacters(e.target.value).toUpperCase());
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
+      // Ajustar los saltos si el tipo es "espacios"
+      const saltosAjustados = tipoSalto === 'espacios'
+        ? saltos.split(' ').map(s => parseInt(s) + 1).join(' ')
+        : saltos;
+        
       if (usarDirecciones) {
-        const result = ordenarCadenaConDirecciones(cadena, saltos, direcciones);
+        const result = ordenarCadenaConDirecciones(cadena, saltosAjustados, direcciones);
         setResultado(result);
       } else {
-        const result = ordenarCadena(cadena, saltos);
+        const result = ordenarCadena(cadena, saltosAjustados);
         setResultado(result);
       }
     } catch (error) {
@@ -29,26 +48,50 @@ const SaltosSucesivos = () => {
       
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="cadena">Cadena (elementos separados por espacios):</label>
+          <label htmlFor="cadena">Cadena:</label>
           <input
             id="cadena"
             type="text"
             value={cadena}
-            onChange={(e) => setCadena(e.target.value)}
+            onChange={handleCadenaChange}
             required
           />
+          <small>Puede escribir con o sin espacios. Los elementos se formatearán automáticamente.</small>
         </div>
         
         <div className="form-group">
-          <label htmlFor="saltos">Saltos (separados por espacios):</label>
+          <div className="saltos-header">
+            <div className="radio-group">
+              <label>
+                <input
+                  type="radio"
+                  name="tipoSalto"
+                  value="saltos"
+                  checked={tipoSalto === 'saltos'}
+                  onChange={(e) => setTipoSalto(e.target.value)}
+                />
+                Saltos
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="tipoSalto"
+                  value="espacios"
+                  checked={tipoSalto === 'espacios'}
+                  onChange={(e) => setTipoSalto(e.target.value)}
+                />
+                Espacios
+              </label>
+            </div>
+          </div>
           <input
             id="saltos"
             type="text"
             value={saltos}
-            onChange={(e) => setSaltos(e.target.value)}
+            onChange={handleSaltosChange}
             required
           />
-          <small>Si se desea por ESPACIOS sumar 1 a cada salto ejemplo "4 6 8" - [5 7 9]</small>
+
         </div>
         
         <div className="form-group">
@@ -69,9 +112,10 @@ const SaltosSucesivos = () => {
               id="direcciones"
               type="text"
               value={direcciones}
-              onChange={(e) => setDirecciones(e.target.value)}
+              onChange={handleDireccionesChange}
               required={usarDirecciones}
             />
+            <small>Los espacios en las direcciones serán ignorados</small>
           </div>
         )}
         

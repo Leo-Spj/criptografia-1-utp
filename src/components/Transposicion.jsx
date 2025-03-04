@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { reordenar } from '../utils/transposicionUtils';
+import { formatNumericKeys, joinCharacters } from '../utils/formatUtils';
 
 const Transposicion = () => {
   const [cadenaPrincipal, setCadenaPrincipal] = useState('AÑHUNBGMYPWTDOVXKFCLZSQREJI');
@@ -7,10 +8,23 @@ const Transposicion = () => {
   const [claveInferior, setClaveInferior] = useState('8 2 3 6 4 7');
   const [resultado, setResultado] = useState('');
 
+  const handleClaveSuperiorChange = (e) => {
+    setClaveSuperior(formatNumericKeys(e.target.value));
+  };
+
+  const handleClaveInferiorChange = (e) => {
+    setClaveInferior(formatNumericKeys(e.target.value));
+  };
+
+  const handleCadenaPrincipalChange = (e) => {
+    setCadenaPrincipal(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const resultado = reordenar(cadenaPrincipal, claveSuperior, claveInferior);
+      const cadenaNormalizada = joinCharacters(cadenaPrincipal);
+      const resultado = reordenar(cadenaNormalizada, claveSuperior, claveInferior);
       setResultado(resultado);
     } catch (error) {
       setResultado(`Error: ${error.message}`);
@@ -28,29 +42,30 @@ const Transposicion = () => {
             id="cadenaPrincipal"
             type="text"
             value={cadenaPrincipal}
-            onChange={(e) => setCadenaPrincipal(e.target.value)}
+            onChange={handleCadenaPrincipalChange}
             required
           />
+          <small>Los espacios en la cadena principal serán ignorados automáticamente</small>
         </div>
         
         <div className="form-group">
-          <label htmlFor="claveSuperior">Clave Superior (separada por espacios):</label>
+          <label htmlFor="claveSuperior">Clave Superior (se formateará automáticamente):</label>
           <input
             id="claveSuperior"
             type="text"
             value={claveSuperior}
-            onChange={(e) => setClaveSuperior(e.target.value)}
+            onChange={handleClaveSuperiorChange}
             required
           />
         </div>
         
         <div className="form-group">
-          <label htmlFor="claveInferior">Clave Inferior (separada por espacios):</label>
+          <label htmlFor="claveInferior">Clave Inferior (se formateará automáticamente):</label>
           <input
             id="claveInferior"
             type="text"
             value={claveInferior}
-            onChange={(e) => setClaveInferior(e.target.value)}
+            onChange={handleClaveInferiorChange}
             required
           />
         </div>

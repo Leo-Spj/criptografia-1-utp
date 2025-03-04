@@ -1,4 +1,3 @@
-
 /**
  * Crea una matriz 6x6 a partir de una cadena de 36 caracteres
  * @param {String} cadena36 - Cadena de 36 caracteres para llenar la matriz
@@ -6,6 +5,9 @@
  * @throws {Error} - Error si la cadena no tiene exactamente 36 caracteres
  */
 export const crearMatriz6x6 = (cadena36) => {
+  // Normalizar la cadena eliminando espacios
+  cadena36 = cadena36.replace(/\s+/g, '');
+  
   if (cadena36.length !== 36) {
     throw new Error("La cadena debe tener exactamente 36 caracteres.");
   }
@@ -31,6 +33,9 @@ export const crearMatriz6x6 = (cadena36) => {
  * @throws {Error} - Error si la clave no tiene exactamente 6 caracteres
  */
 export const construirDiccionarioPosiciones = (matriz, clave) => {
+  // Normalizar la clave eliminando espacios
+  clave = clave.replace(/\s+/g, '');
+  
   if (clave.length !== 6) {
     throw new Error("La clave debe tener exactamente 6 caracteres.");
   }
@@ -52,6 +57,9 @@ export const construirDiccionarioPosiciones = (matriz, clave) => {
  * @returns {Object} - Objeto con los diferentes formatos del resultado encriptado
  */
 export const encriptarTexto = (texto, posiciones) => {
+  // Normalizar el texto eliminando espacios
+  texto = texto.replace(/\s+/g, '');
+  
   const coordsX = [];
   const coordsY = [];
   

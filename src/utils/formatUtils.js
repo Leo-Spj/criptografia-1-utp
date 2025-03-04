@@ -35,3 +35,40 @@ export const validateCharCount = (text, expectedLength) => {
   const cleanText = joinCharacters(text);
   return cleanText.length === expectedLength;
 };
+
+/**
+ * Separa un texto en caracteres individuales con espacio entre ellos
+ * @param {string} text - El texto a separar
+ * @returns {string} - Texto con caracteres separados por espacios
+ */
+export const separateCharacters = (text) => {
+  // Primero elimina todos los espacios
+  const withoutSpaces = joinCharacters(text);
+  // Luego separa cada carácter con un espacio
+  return withoutSpaces.split('').join(' ');
+};
+
+/**
+ * Normaliza una cadena para uso en los algoritmos (elimina espacios)
+ * @param {string} text - El texto a normalizar
+ * @returns {string} - Texto sin espacios
+ */
+export const normalizeForProcessing = (text) => {
+  return joinCharacters(text);
+};
+
+/**
+ * Formatea automáticamente claves numéricas para asegurar que estén separadas por espacios
+ * @param {string} text - El texto con claves numéricas
+ * @returns {string} - Claves numéricas separadas por espacios
+ */
+export const formatNumericKeys = (text) => {
+  // Elimina todos los espacios primero
+  const withoutSpaces = joinCharacters(text);
+  
+  // Si está vacío, devuelve vacío
+  if (!withoutSpaces) return '';
+  
+  // Separa cada número con un espacio
+  return withoutSpaces.split('').join(' ').trim();
+};

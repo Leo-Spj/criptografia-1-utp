@@ -15,6 +15,7 @@ function App() {
       <div className="app-container">
         <header>
           <h1>Algoritmos Criptográficos</h1>
+          <a href="https://github.com/Leo-Spj/criptografia-1-utp" target="_blank" rel="noopener noreferrer">GitHub</a>
           <nav>
             <ul className="nav-list">
               <li><Link to="/abecedario-excel">Abecedario a Excel</Link></li>

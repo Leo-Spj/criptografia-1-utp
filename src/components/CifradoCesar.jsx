@@ -111,6 +111,33 @@ const CifradoCesar = () => {
         <div className="result-container">
           <h3>Resultado:</h3>
           <div className="result">{resultado}</div>
+          <div className="tabla-caracteres">
+            <table>
+              <tbody>
+                <tr>
+                  {resultado.split('').map((caracter, index) => (
+                    <td key={index}>{caracter}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <style jsx>{`
+            .tabla-caracteres {
+              overflow-x: auto;
+              margin-top: 15px;
+            }
+            .tabla-caracteres table {
+              border-collapse: collapse;
+              width: 100%;
+            }
+            .tabla-caracteres td {
+              border: 1px solid #ddd;
+              padding: 8px;
+              text-align: center;
+              min-width: 30px;
+            }
+          `}</style>
         </div>
       )}
     </div>

@@ -11,11 +11,32 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/criptografia-1-utp">
       <div className="app-container">
         <header>
           <h1>Algoritmos Criptográficos</h1>
-          <a href="https://github.com/Leo-Spj/criptografia-1-utp" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <a
+              href="https://github.com/Leo-Spj/criptografia-1-utp"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                backgroundColor: '#3498db',
+                color: 'white',
+                border: 'none',
+                padding: '12px 20px',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                fontSize: '16px',
+                textDecoration: 'none',
+                transition: 'background-color 0.3s',
+              }}
+              onMouseOver={(e) => (e.target.style.backgroundColor = '#2980b9')}
+              onMouseOut={(e) => (e.target.style.backgroundColor = '#3498db')}
+            >
+              GitHub
+            </a>
+          </div>
           <nav>
             <ul className="nav-list">
               <li><Link to="/abecedario-excel">Abecedario a Excel</Link></li>

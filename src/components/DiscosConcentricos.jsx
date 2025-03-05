@@ -122,42 +122,6 @@ const DiscosConcentricos = () => {
         </div>
       )}
       
-      <style jsx>{`
-        .matriz-container {
-          margin-bottom: 20px;
-        }
-        .matriz {
-          border-collapse: collapse;
-          margin: 10px 0;
-        }
-        .matriz td {
-          border: 1px solid #ddd;
-          padding: 10px;
-          text-align: center;
-          width: 40px;
-          height: 40px;
-        }
-        .form-group {
-          margin-bottom: 15px;
-        }
-        .helper-text {
-          display: block;
-          color: #666;
-          font-size: 0.85rem;
-          margin-top: 4px;
-        }
-        button {
-          padding: 8px 16px;
-          background-color: #4CAF50;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        button:hover {
-          background-color: #45a049;
-        }
-      `}</style>
     </div>
   );
 };

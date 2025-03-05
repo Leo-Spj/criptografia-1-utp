@@ -86,22 +86,6 @@ const Trama = () => {
               </tbody>
             </table>
           </div>
-          <style jsx>{`
-            .tabla-caracteres {
-              overflow-x: auto;
-              margin-top: 15px;
-            }
-            .tabla-caracteres table {
-              border-collapse: collapse;
-              width: 100%;
-            }
-            .tabla-caracteres td {
-              border: 1px solid #ddd;
-              padding: 8px;
-              text-align: center;
-              min-width: 30px;
-            }
-          `}</style>
         </div>
       )}
     </div>
